@@ -1,0 +1,31 @@
+<div class="discussion">
+  <div contenteditable="true">
+    {{discussionview.discussion}}
+  </div>
+  <div class="likes">
+    <button>Like</button>
+    <label>10</label>
+  </div>
+</div>
+<div class="newcomm">
+  Comment:
+  <input type="text" [(ngModel)]="comment">
+  <button (click)="addNewComment(discussionview.id)">Save</button>
+</div>
+<!-- comments -->
+<div class="comments" *ngFor="let comm of discussionview.comments">
+  <div id="myId_{{comm.cid}}">
+    {{comm.comment}}
+  </div>
+  <div class="likes">
+    <button (click)="commentLike(discussionview.id,comm.cid)">Like</button>
+    <label>{{comm.clike.length}}</label>
+    <button *ngIf="comm.uid==logser.loggedUser.uid && 'myId_'+comm.cid!=selectedDiv" (click)="editcomment(comm.cid)">edit</button>
+    <button *ngIf="'myId_'+comm.cid==selectedDiv" >save</button>
+    <button *ngIf="comm.uid==logser.loggedUser.uid" (click)="deleteComment(discussionview.id,comm.cid)">Delete</button>
+  </div>
+</div>
+
+
+
+<button (click)="navigate()">Save</button>
